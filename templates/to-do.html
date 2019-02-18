@@ -1,0 +1,28 @@
+<html>
+	<head>
+	<title>To Do</title>
+	</head>
+	<body>
+	<h1>To Do</h1>
+	<form action="{{url_for('add')}}" method="POST">
+		<label> Add Item </label>
+		<input type = "text" name = "item" value={{request.form.item}}>
+		<button type = "submit">Add</button>
+	</form>
+	<a href="{{url_for('accounts')}}">Log out</a>
+	<ul> 
+		{% for item in items %}
+			<li>
+				{% if item['completed'] %}
+					<del>{{item['content']}}</del>
+				{% else: %}
+					{{item['content']}}<a href="{{url_for('complete', id = item['id'])}}">Mark Done</a>
+				{% endif %}
+					<a href="{{url_for('delete', id = item['id'])}}">Delete</a>
+			</li>
+		{% endfor %}
+	</ul>
+	
+	
+	</body>
+</html>

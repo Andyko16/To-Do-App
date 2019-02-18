@@ -1,0 +1,20 @@
+<html>
+	<head>
+	<title>Account</title>
+	</head>
+	<body>
+	<h1>Login</h1>
+	<form action="{{url_for('account', method = 'login')}}" method="POST">
+		<label> Username </label>
+		<input type = "text" name = "username" value={{request.form.username}}>
+		<button type = "submit">Login</button>
+	</form>
+	<h1>Register</h1>
+	<form action="{{url_for('account', method = 'register')}}" method="POST">
+		<label> Username </label>
+		<input type = "text" name = "username" value={{request.form.username}}>
+		<button type = "submit">Register</button>
+	</form>
+	
+	</body>
+</html>
