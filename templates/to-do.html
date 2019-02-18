@@ -16,7 +16,7 @@
 				{% if item['completed'] %}
 					<del>{{item['content']}}</del>
 				{% else: %}
-					{{item['content']}}<a href="{{url_for('complete', id = item['id'])}}">Mark Done</a>
+					{{item['content']}} <a href="{{url_for('complete', id = item['id'])}}">Mark Done</a>
 				{% endif %}
 					<a href="{{url_for('delete', id = item['id'])}}">Delete</a>
 			</li>

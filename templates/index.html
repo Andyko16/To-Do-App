@@ -3,20 +3,34 @@
 	<title>My Profile</title>
 	</head>
 	<body>
-	<h1>Andy Ko</h1>
-	<img />
-	<p> I am an undergraduate senior at <a href = "https://hunter.cuny.edu/">Hunter College</a>. I am majoring in Computer Science and minoring in Sociology. I have experience with C++, Java, JavaScript, HTML5, CSS, PHP, and Python.
+	<h1 style="text-align:center">Andy Ko</h1>
+	<div>
+	<img src ="https://scontent-lga3-1.xx.fbcdn.net/v/t1.0-9/581548_334614206634564_720046108_n.jpg?_nc_cat=107&_nc_ht=scontent-lga3-1.xx&oh=3649d0d35530b7148143a0264e1da0d5&oe=5CDF9871" height = 30% style="float:left"/>
+	<p>I am an undergraduate senior at <a href = "https://hunter.cuny.edu/">Hunter College</a>. I am majoring in Computer Science and minoring in Sociology. I have experience with C++, Java, JavaScript, HTML5, CSS, PHP, and Python.
 	</p>
-	<ul>Contact Information
+	</div>
+	<ul style="overflow:auto"><h4>Things I do on my free time:</h4>
+		<li>Sleep</li>
+		<li>Games</li>
+		<ul>
+			<li><a href = "http://mabinogi.nexon.net/">Mabinogi</a></li>
+			<li><a href = "https://www.runescape.com/">RuneScape</a></li>
+		</ul>
+		<li>Reading light novels</li>
+		<li>Coding</li>
+	</ul>
+	
+	<div style="overflow:auto">	
+	<ul style="float:left"><h4>Contact Information:</h4>
 		<li>Hunter Email: <a href="mailto:Andy.ko16@myhunter.cuny.edu" target="_top">Andy.ko16@myhunter.cuny.edu</a></li>
 		<li>Phone: (712) 992-3178</li>
 		<li><a href="https://www.linkedin.com/in/andy-ko-969920175/>">Linkedin</a>
 	</ul>
 	
-	<ul>Related Links
-		<li><a href="https://github.com/Andyko16">GitHub profile</a></li>
+	<ul style="overflow:auto"><h4>Related Links:</h4>
+		<li><a href="https://github.com/Andyko16">GitHub</a></li>
 		<li><a href="{{url_for('accounts')}}">To-Do App</a></li>
 	</ul>
-	
+	</div>
 	</body>
 </html>
