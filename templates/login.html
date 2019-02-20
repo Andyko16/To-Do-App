@@ -9,13 +9,15 @@
 		<input type = "text" name = "username" value={{request.form.username}}>
 		<button type = "submit">Login</button>
 	</form>
+	{{lstatus}}
 	<h1>Register</h1>
 	<form action="{{url_for('account', method = 'register')}}" method="POST">
 		<label> Username </label>
 		<input type = "text" name = "username" value={{request.form.username}}>
 		<button type = "submit">Register</button>
 	</form>
-	
+	{{rstatus}}
+	<br />
 	<a href = "{{url_for('home')}}">Home Page</a>
 	
 	</body>

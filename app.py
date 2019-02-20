@@ -5,6 +5,8 @@ import urllib3, requests
 
 dict = []
 cookies = requests.cookies.RequestsCookieJar()
+lstatus = ""
+rstatus = ""
 	
 app = Flask(__name__)
 
@@ -39,29 +41,33 @@ def add():
 def accounts():
 	global cookies
 	cookies = requests.cookies.RequestsCookieJar()
-	return render_template('login.html')
+	global lstatus
+	global rstatus
+	return render_template('login.html', lstatus = lstatus, rstatus = rstatus)
 	
 @app.route('/account/<method>', methods = ['POST'])
 def account(method):
 	if request.method == 'POST':
 		username = request.form['username']
 		if (method == 'login'):
-			login(username)
-			return redirect(url_for('to_do'))
+			r = requests.post('https://hunter-todo-api.herokuapp.com/auth', data = json.dumps({'username':username}))
+			global cookies
+			cookies = r.cookies
+			if (r.status_code == 200):
+				return redirect(url_for('to_do'))
+			else:
+				global lstatus
+				lstatus = r.text
+				return redirect(url_for('accounts'))
 		elif (method == 'register'):
-			register(username)
+			r = requests.post('https://hunter-todo-api.herokuapp.com/user', data = json.dumps({'username':username}))
+			global rstatus
+			rstatus = r.text
 			return redirect(url_for('accounts'))
 	else:
 		return render_template('login.html')
 
-def login(username):
-	r = requests.post('https://hunter-todo-api.herokuapp.com/auth', data = json.dumps({'username':username}))
-	global cookies
-	cookies = r.cookies
 	
-def register(username):
-	r = requests.post('https://hunter-todo-api.herokuapp.com/user', data = json.dumps({'username':username}))
-
 def getAllToDOItems():
 	r = requests.get('https://hunter-todo-api.herokuapp.com/todo-item', cookies = cookies)
 	global dict
