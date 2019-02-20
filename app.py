@@ -3,11 +3,8 @@ import os
 import json
 import urllib3, requests
 
-dict = []
 cookies = requests.cookies.RequestsCookieJar()
-lstatus = ""
-rstatus = ""
-	
+
 app = Flask(__name__)
 
 @app.route('/')
@@ -16,8 +13,8 @@ def home():
 	
 @app.route('/to_do', methods = ['GET','POST'])
 def to_do():
-	getAllToDOItems()
-	return render_template('to-do.html', items = dict)
+	r = requests.get('https://hunter-todo-api.herokuapp.com/todo-item', cookies = cookies)
+	return render_template('to-do.html', items = r.json())
 
 @app.route('/delete/<id>')
 def delete(id):
@@ -41,9 +38,7 @@ def add():
 def accounts():
 	global cookies
 	cookies = requests.cookies.RequestsCookieJar()
-	global lstatus
-	global rstatus
-	return render_template('login.html', lstatus = lstatus, rstatus = rstatus)
+	return render_template('login.html')
 	
 @app.route('/account/<method>', methods = ['POST'])
 def account(method):
@@ -56,22 +51,15 @@ def account(method):
 			if (r.status_code == 200):
 				return redirect(url_for('to_do'))
 			else:
-				global lstatus
-				lstatus = r.text
-				return redirect(url_for('accounts'))
+				return render_template('login.html', lstatus = r.text)
 		elif (method == 'register'):
 			r = requests.post('https://hunter-todo-api.herokuapp.com/user', data = json.dumps({'username':username}))
-			global rstatus
-			rstatus = r.text
-			return redirect(url_for('accounts'))
+			if (r.status_code == 201):
+				return render_template('login.html', rstatus = "Register successful. Please Login")
+			else:
+				return render_template('login.html', rstatus = r.text)
 	else:
 		return render_template('login.html')
-
-	
-def getAllToDOItems():
-	r = requests.get('https://hunter-todo-api.herokuapp.com/todo-item', cookies = cookies)
-	global dict
-	dict = r.json()
 		
 def getToDoItem(id):
 	url = 'https://hunter-todo-api.herokuapp.com/todo-item/' + id
